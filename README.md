@@ -1,5 +1,8 @@
 # Cosmetic Supply Chain Optimization with Talend, Python & Power BI
 
+## 🎓 Academic Context
+This project was carried out as part of my academic journey at **Esprit School of Engineering**. It serves as a capstone integration of data engineering, business intelligence, and machine learning techniques to address real-world supply chain challenges in the cosmetics industry.
+
 ## 🧴 Project Overview
 This project aims to enhance the efficiency of a cosmetic supply chain by implementing a Business Intelligence (BI) and Artificial Intelligence (AI) system. It uses Talend for the ETL process, a constellation schema for the data warehouse, and AI models to optimize supplier selection, inventory management, and customer sentiment analysis.
 
