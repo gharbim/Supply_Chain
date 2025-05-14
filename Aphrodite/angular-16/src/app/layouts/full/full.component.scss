@@ -1,0 +1,44 @@
+.max-width {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.aphrodite-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px;
+  background-color: #f0c7b6; // ton rose doux
+  border-bottom: 1px solid #EFC6B5;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+.left-sidebar {
+  background-color: #f0c7b6 !important; /* 👈 priorité maximale */
+}
+
+
+.aphrodite-img {
+  height: 60px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+.topbar {
+  background-color:#EFC6B5 !important;
+  color: #EFC6B5;
+
+  .navbar-brand {
+    background-color: #f0c7b6; //old one var(--aphrodite-secondary)
+    padding: 0.5rem 1rem;
+    border-radius: 0px;
+    margin-right: -1px;
+
+    img {
+      height: 50px;
+    }
+  }
+
+  .pro-pic span {
+    font-weight: 600;
+    color: #EFC6B5;
+  }
+}

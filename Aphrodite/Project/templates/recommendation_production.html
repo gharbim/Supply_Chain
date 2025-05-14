@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center text-primary mb-4">💄 Recommandation Beauté - Production</h2>
+  <form method="POST">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Produit de départ</label>
+        <select name="product_name" class="form-select">
+          {% for name in product_names %}
+            <option value="{{ name }}">{{ name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Type de peau</label>
+        <select name="user_skin_type" class="form-select">
+          {% for skin in skin_types %}
+            <option value="{{ skin }}">{{ skin }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label">Fréquence d'utilisation</label>
+      <select name="user_usage" class="form-select">
+        {% for usage in usage_frequencies %}
+          <option value="{{ usage }}">{{ usage }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-success px-4">🔍 Obtenir les recommandations</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

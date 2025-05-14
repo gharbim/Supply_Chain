@@ -1,0 +1,45 @@
+<div *ngIf="role">
+  <h1>Générer un rapport pour {{ role }}</h1>
+
+  <div class="form-group">
+    <label for="profile">Sélectionner un profil</label>
+    <select id="profile" [(ngModel)]="selectedProfile" class="form-control">
+      <option *ngIf="role === 'stock-manager'" value="Stock Analyste">Stock Analyste</option>
+      <option *ngIf="role === 'sales-manager'" value="Responsable Commercial">Responsable Commercial</option>
+      <option *ngIf="role === 'production-manager'" value="Chef de Production">Chef de Production</option>
+      <option *ngIf="role === 'super-manager'" value="Tous">Tous les profils</option>
+    </select>
+  </div>
+
+  <!-- Zone de saisie du prompt -->
+  <div class="form-group">
+    <label for="prompt">Entrez votre prompt</label>
+    <textarea id="prompt" [(ngModel)]="userPrompt" class="form-control" rows="4" placeholder="Entrez votre prompt pour générer un rapport détaillé."></textarea>
+  </div>
+
+  <!-- Bouton pour générer le rapport -->
+  <button (click)="generate()" class="btn btn-primary">Générer le rapport</button>
+
+  <!-- Affichage du spinner pendant la génération -->
+  <div *ngIf="isLoading" class="spinner-border" role="status">
+    <span class="sr-only">Chargement...</span>
+  </div>
+
+  <!-- Affichage du rapport -->
+  <div *ngIf="!isLoading && report">
+    <h2>Rapport Généré :</h2>
+    <div [innerHTML]="report"></div> <!-- Affichage du rapport formaté -->
+  </div>
+
+  <!-- Boutons de téléchargement -->
+  <button *ngIf="report" (click)="downloadPDF()" class="btn btn-success">Télécharger le rapport en PDF</button>
+  <button *ngIf="report" (click)="downloadWord()" class="btn btn-warning">Télécharger le rapport en Word</button>
+
+  <!-- Affichage des erreurs -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Bouton pour envoyer l'email (Super Manager uniquement) -->
+  <button *ngIf="authService.getRole() === 'super-manager'" (click)="sendEmail()" class="btn btn-info">Envoyer par Email</button>
+</div>

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <!-- Page Title -->
+        <h2>📈 Consumption Prediction</h2>
+        
+        <!-- Prediction Form -->
+        <form method="POST">
+            <div class="mb-3">
+                <label for="capacity" class="form-label">Stock Capacity:</label>
+                <input type="number" name="capacity" step="1" min="0" class="form-control" placeholder="e.g., 1000" required>
+            </div>
+            <button type="submit" class="btn btn-warning">Predict</button>
+        </form>
+
+        <!-- Prediction Result -->
+        {% if prediction %}
+            <hr>
+            <h3>Estimated Consumption: {{ prediction }}</h3>
+            
+            {% if alert %}
+                <div class="alert alert-danger mt-3">
+                    <strong>Warning:</strong> {{ alert }}
+                </div>
+                <p><strong>{{ recommendation }}</strong></p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

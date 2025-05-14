@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">🎯 Best Product Recommendation</h2>
+
+    <!-- Formulaire de filtres -->
+    <form method="POST" class="row g-3">
+        <div class="col-md-4">
+            <label for="price_min" class="form-label">Minimum Price (€):</label>
+            <input type="number" step="0.1" name="price_min" id="price_min" class="form-control" placeholder="Ex: 10">
+        </div>
+
+        <div class="col-md-4">
+            <label for="price_max" class="form-label">Maximum Price (€):</label>
+            <input type="number" step="0.1" name="price_max" id="price_max" class="form-control" placeholder="Ex: 100">
+        </div>
+
+        <div class="col-md-4">
+            <label for="rating_min" class="form-label">Minimum Rating (0-5):</label>
+            <input type="number" step="0.5" name="rating_min" id="rating_min" class="form-control" placeholder="Ex: 4.0" min="0" max="5">
+        </div>
+
+        <div class="col-md-6">
+            <label for="brand" class="form-label">Brand :</label>
+            <select name="brand" id="brand" class="form-select">
+                <option value="">Select a brand</option>
+                {% for brand in brands %}
+                    <option value="{{ brand }}">{{ brand }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">🔎 Recommend</button>
+        </div>
+    </form>
+
+    <!-- Résultats -->
+    {% if products %}
+        <hr class="my-4">
+        <h4>🛍️ Recommended Products:</h4>
+        <div class="list-group mt-3">
+            {% for product in products %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ product['Product'] }} <small class="text-muted">({{ product['Brand'] }})</small></h5>
+                    <p class="mb-1">
+                        💵 Price: {{ product['Price'] | round(2) }} €<br>
+                        ⭐ Rating: {{ product['Rating'] | round(1) }}/5<br>
+                        🗣️ Reviews: {{ product['Reviews'] | int }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <hr class="my-4">
+        <div class="alert alert-warning" role="alert">
+            No products match your criteria. Try adjusting the filters! 😔
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

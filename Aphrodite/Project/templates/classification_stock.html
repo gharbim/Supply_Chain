@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>📊 Stock Categorization by Levels</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity:</label>
+            <input type="number" id="capacity" min ="0" name="capacity" class="form-control" placeholder="e.g., 1000" required>
+        </div>
+        <button type="submit" class="btn btn-success">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <hr>
+        <h4>Predicted Level: {{ prediction }}</h4>
+        <div class="alert 
+            {% if prediction == 'Low' %} alert-danger 
+            {% elif prediction == 'Medium' %} alert-warning 
+            {% else %} alert-success 
+            {% endif %}" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Models Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1055;
+        }
+
+        .dropdown-menu .dropdown-item {
+            color: white;
+        }
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #198754;
+            color: white;
+        }
+        .dropdown-toggle::after {
+            display: inline-block;
+            margin-left: .255em;
+            vertical-align: .255em;
+            content: "";
+            border-top: .3em solid;
+            border-right: .3em solid transparent;
+            border-left: .3em solid transparent;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row vh-100">
+        <!-- Sidebar -->
+        <div class="col-md-3 bg-dark text-white p-4">
+            <h2>Dashboard</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/">🏠 Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/review">📝 Sentiment Review</a>
+                </li>
+
+                <!-- Dropdown Stock -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="stockDropdown" role="button">
+                        📦 Stock
+                    </a>
+                    <ul class="dropdown-menu bg-dark border-0 shadow" aria-labelledby="stockDropdown">
+                        <li><a class="dropdown-item" href="/clustering_stock">🧩Organize Stocks</a></li>
+                        <li><a class="dropdown-item" href="/classification_stock">📊 Stock Categorization by Levels</a></li>
+                        <li><a class="dropdown-item" href="/regression_stock">📈  Consumption Prediction</a></li>
+                        <li><a class="dropdown-item" href="/box">📦 Box Detection</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown Production -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="productionDropdown" role="button">
+                        🏭 Production
+                    </a>
+                    <ul class="dropdown-menu bg-dark border-0 shadow" aria-labelledby="productionDropdown">
+                        <li><a class="dropdown-item" href="/recommandation_stock">🎯 Product Catalog</a></li>
+                        <li><a class="dropdown-item" href="/recommendation_production">🎯 Production Recommendation</a></li>
+                        <li><a class="dropdown-item" href="/forecast_production">📅 Production Forecasting</a></li>
+                        <li><a class="dropdown-item" href="/cosmetics_predict">🧠 Product Detection</a></li>
+                        <li><a class="dropdown-item" href="/classification_production">🏭 Product-Based Dosage Level Analysis</a></li>
+                        <li><a class="dropdown-item" href="/regression_production">📈 Forecasting Material Quantities Over a Specific Period</a></li>
+                    </ul>
+                    
+                </li>
+
+                <!-- Dropdown Nouveaux Modèles -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="newModelsDropdown" role="button">
+                        💸 Sales
+                    </a>
+                    <ul class="dropdown-menu bg-dark border-0 shadow" aria-labelledby="newModelsDropdown">
+                        <li><a class="dropdown-item" href="/predict_arriima">📈 Prédiction ARRIIMA</a></li>
+                        <li><a class="dropdown-item" href="/predict_blinear">📉 Prédiction B Linear</a></li>
+                        <li>
+                            <a class="dropdown-item" href="/predict">📈 Revenue Prediction</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="col-md-9 p-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+              <div class="toast-container">
+                {% for category, message in messages %}
+                <div class="toast align-items-center text-bg-{{ category }} border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="d-flex">
+                    <div class="toast-body">
+                      {{ message }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<!-- Scripts Bootstrap Toast + Dropdown Fix -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  const toastList = toastElList.map(function (toastEl) {
+    return new bootstrap.Toast(toastEl, { delay: 5000 });
+  });
+  toastList.forEach(toast => toast.show());
+
+  // Gestion dropdowns
+  document.addEventListener('DOMContentLoaded', function() {
+    const productionDropdown = document.getElementById('productionDropdown');
+    const productionMenu = productionDropdown.nextElementSibling;
+    const stockDropdown = document.getElementById('stockDropdown');
+    const stockMenu = stockDropdown.nextElementSibling;
+    const newModelsDropdown = document.getElementById('newModelsDropdown');
+    const newModelsMenu = newModelsDropdown.nextElementSibling;
+
+    productionDropdown.addEventListener('click', function (e) {
+        e.preventDefault();
+        productionMenu.classList.toggle('show');
+    });
+    stockDropdown.addEventListener('click', function (e) {
+        e.preventDefault();
+        stockMenu.classList.toggle('show');
+    });
+    newModelsDropdown.addEventListener('click', function (e) {
+        e.preventDefault();
+        newModelsMenu.classList.toggle('show');
+    });
+  });
+</script>
+</body>
+</html>

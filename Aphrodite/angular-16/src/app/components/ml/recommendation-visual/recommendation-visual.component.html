@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-header">📦 Recommandation de Stock</div>
+    <div class="card-body">
+      <form (ngSubmit)="getRecommendations()">
+        <div class="mb-2">
+          <input type="number" [(ngModel)]="filters.price_min" name="price_min" class="form-control" placeholder="Prix minimum" />
+        </div>
+        <div class="mb-2">
+          <input type="number" [(ngModel)]="filters.price_max" name="price_max" class="form-control" placeholder="Prix maximum" />
+        </div>
+        <div class="mb-2">
+          <input type="number" [(ngModel)]="filters.rating_min" name="rating_min" class="form-control" placeholder="Note minimale" />
+        </div>
+        <div class="mb-2">
+          <select [(ngModel)]="filters.brand" name="brand" class="form-control">
+            <option value="">-- Choisir une marque --</option>
+            <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Recommander</button>
+      </form>
+  
+      <div *ngIf="recommendations.length > 0" class="mt-4">
+        <h5>Produits recommandés :</h5>
+        <ul class="list-group">
+          <li *ngFor="let p of recommendations" class="list-group-item">
+            {{ p.Name }} — {{ p.Brand }} — {{ p.Price }} TND — {{ p.Rating }}★
+          </li>
+        </ul>
+      </div>
+  
+      <p *ngIf="showEmptyMessage" class="text-muted mt-3">Aucun résultat trouvé.</p>
+    </div>
+  </div>
+  

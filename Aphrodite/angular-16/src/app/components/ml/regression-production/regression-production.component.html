@@ -1,0 +1,56 @@
+<div class="container mt-5">
+    <h2 class="text-primary text-center mb-4">📈 Régression Production</h2>
+  
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label>Produit :</label>
+        <select class="form-control" [(ngModel)]="productFK">
+          <option [ngValue]="null">-- Choisir un produit --</option>
+          <option *ngFor="let product of products" [ngValue]="product.id">
+            {{ product.name }} (ID: {{ product.id }})
+          </option>
+        </select>
+      </div>
+  
+      <div class="col-md-3">
+        <label>Marque :</label>
+        <select class="form-control" [(ngModel)]="brandFK">
+          <option [ngValue]="null">-- Choisir une marque --</option>
+          <option *ngFor="let brand of brands" [ngValue]="brand.id">
+            {{ brand.name }} (ID: {{ brand.id }})
+          </option>
+        </select>
+      </div>
+  
+      <div class="col-md-3">
+        <label>Dosage :</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="dosage"
+          [min]="0"
+          (keydown)="preventNegative($event)"
+        />
+      </div>
+  
+      <div class="col-md-3">
+        <label>Durée de production (h) :</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="productionDurationHours"
+          [min]="0"
+          (keydown)="preventNegative($event)"
+        />
+      </div>
+    </div>
+  
+    <div class="text-center mt-4">
+      <button class="btn btn-success" (click)="getPrediction()">🔍 Prédire</button>
+    </div>
+  
+    <div class="text-center mt-3 text-info">
+      <strong>{{ predictionResult }}</strong>
+    </div>
+  </div>
+  

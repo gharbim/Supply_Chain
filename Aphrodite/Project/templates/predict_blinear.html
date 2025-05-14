@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">📉 Prédiction avec modèle Régression Linéaire</h2>
+
+    <form method="POST" class="card p-5 shadow-lg rounded-4 bg-light">
+        <div class="mb-4">
+            <label for="input_value" class="form-label">Entrée</label>
+            <input type="number" step="any" class="form-control" id="input_value" name="input_value" placeholder="🔢 Entrez une valeur" required>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg shadow-sm">🔍 Prédire</button>
+        </div>
+    </form>
+
+    {% if prediction %}
+    <div class="alert alert-primary mt-4">
+        📊 Résultat : <strong>{{ prediction }}</strong>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

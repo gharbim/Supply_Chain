@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <h2 class="text-primary text-center mb-4">💄 Recommandation Beauté (Production)</h2>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label>Produit :</label>
+      <select class="form-select" [(ngModel)]="selectedProduct">
+        <option *ngFor="let p of productNames" [value]="p">{{ p }}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label>Type de peau :</label>
+      <select class="form-select" [(ngModel)]="selectedSkin">
+        <option *ngFor="let s of skinTypes" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label>Fréquence d'utilisation :</label>
+      <select class="form-select" [(ngModel)]="selectedUsage">
+        <option *ngFor="let u of usageFrequencies" [value]="u">{{ u }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="text-center mb-4">
+    <button class="btn btn-success" (click)="getRecommendations()">🔍 Obtenir les recommandations</button>
+  </div>
+
+  <div class="table-responsive mt-4" *ngIf="predictionData.length > 0">
+    <table id="datatable" class="display table table-bordered w-100">
+      <thead class="table-light">
+        <tr>
+          <th>Product_Name</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Skin_Type</th>
+          <th>Usage_Frequency</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of predictionData">
+          <td>{{ item.Product_Name }}</td>
+          <td>{{ item.Brand }}</td>
+          <td>{{ item.Category }}</td>
+          <td>{{ item.Skin_Type }}</td>
+          <td>{{ item.Usage_Frequency }}</td>
+          <td>{{ item.Rating }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

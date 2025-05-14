@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <h2 class="text-center text-info mb-4">🧠 Prédiction de Type Cosmétique (Deep Learning)</h2>
+
+  <!-- Formulaire d'envoi d'image -->
+  <form method="POST" enctype="multipart/form-data" class="text-center mb-4">
+    <label for="image" class="form-label fw-bold">🖼️ Sélectionnez une image de produit :</label>
+    <input type="file" name="image" accept="image/*" class="form-control w-50 mx-auto mb-3" required>
+    <button type="submit" class="btn btn-primary">📤 Prédire</button>
+  </form>
+
+  <!-- Affichage de l'image et du résultat -->
+  {% if image_url %}
+    <div class="text-center mt-4">
+      <img src="{{ image_url }}" class="img-thumbnail" style="max-height: 300px;">
+      <h4 class="mt-3">🔍 Résultat : <span class="text-success fw-bold">{{ prediction }}</span></h4>
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-outline-secondary">⬅ Retour</a>
+  </div>
+</div>
+
+{% endblock %}
+

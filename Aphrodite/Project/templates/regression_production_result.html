@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 text-center">
+        <h2>📈 Résultat de la Prédiction</h2>
+        <p class="fs-4 mt-3">✅ Quantité prédite : <strong>{{ prediction }}</strong></p>
+        <a href="/regression_production" class="btn btn-primary mt-3">🔄 Faire une autre prédiction</a>
+    </div>
+</div>
+{% endblock %}

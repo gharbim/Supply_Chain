@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-header">📈 Régression Linéaire B</div>
+    <div class="card-body">
+      <input type="number" [(ngModel)]="inputValue" class="form-control mb-3" placeholder="Entrer la valeur d'entrée" />
+      <button class="btn btn-primary" (click)="predict()">Prédire</button>
+  
+      <div *ngIf="prediction !== null" class="mt-4">
+        <h5>Résultat :</h5>
+        <p>{{ prediction }}</p>
+      </div>
+    </div>
+  </div>
+  

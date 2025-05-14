@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header">📈 Régression Stock (Estimation d’usage)</div>
+    <div class="card-body">
+      <input type="number" [(ngModel)]="capacity" class="form-control mb-3" placeholder="Entrer la capacité du stock">
+      <button class="btn btn-primary" (click)="predictUsage()">Prédire</button>
+  
+      <div *ngIf="prediction !== null" class="mt-4">
+        <p><strong>Utilisation estimée :</strong> {{ prediction }} unités</p>
+        <p><strong>Alerte :</strong> {{ alert }}</p>
+        <p><strong>Recommandation :</strong> {{ recommendation }}</p>
+      </div>
+    </div>
+  </div>
+  

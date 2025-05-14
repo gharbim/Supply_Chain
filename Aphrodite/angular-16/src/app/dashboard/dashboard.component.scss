@@ -1,0 +1,16 @@
+:host {
+    display: block;
+  
+    app-top-cards,
+    app-sales-ratio,
+    app-feeds,
+    app-top-selling,
+    app-blog-cards {
+      
+      margin-top: 10rem;
+      &:hover {
+        background-color: #EFC6B5;
+      }
+    }
+  }
+  

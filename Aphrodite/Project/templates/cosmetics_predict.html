@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  .preview-img {
+    margin-top: 20px;
+    max-width: 200px; /* Taille maximale de l'image */
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #progressContainer {
+    display: none;
+  }
+</style>
+
+<div class="container">
+  <h2 class="text-center mb-4">📸 Uploader une ou plusieurs images de Produits Cosmétiques</h2>
+
+  <form id="uploadForm" action="/cosmetics_predict" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+    <div class="mb-3">
+      <input class="form-control" type="file" name="file" id="fileInput" accept="image/*" required onchange="previewImage(event)">
+    </div>
+
+    <div class="text-center">
+      <img id="preview" class="preview-img" style="display:none;">
+    </div>
+
+    <div id="progressContainer" class="progress mt-3">
+      <div id="progressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%">0%</div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-primary" id="predictBtn">🔍 Prédire</button>
+      <button type="button" class="btn btn-secondary ms-2" onclick="resetForm()">🔄 Réinitialiser</button>
+    </div>
+  </form>
+</div>
+
+<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="uploadToast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      ✅ Image chargée avec succès !
+    </div>
+  </div>
+</div>
+
+<script>
+function previewImage(event) {
+  var reader = new FileReader();
+  reader.onload = function(){
+    var output = document.getElementById('preview');
+    output.src = reader.result;
+    output.style.display = 'block';
+
+    var progressContainer = document.getElementById('progressContainer');
+    var progressBar = document.getElementById('progressBar');
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '0%';
+    progressBar.innerHTML = '0%';
+
+    var width = 0;
+    var interval = setInterval(function(){
+      if (width >= 100) {
+        clearInterval(interval);
+        var toast = new bootstrap.Toast(document.getElementById('uploadToast'));
+        toast.show();
+      } else {
+        width += 10;
+        progressBar.style.width = width + '%';
+        progressBar.innerHTML = width + '%';
+      }
+    }, 100);
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+function resetForm() {
+  document.getElementById('uploadForm').reset();
+  document.getElementById('preview').style.display = 'none';
+  document.getElementById('progressContainer').style.display = 'none';
+}
+</script>
+
+{% endblock %}

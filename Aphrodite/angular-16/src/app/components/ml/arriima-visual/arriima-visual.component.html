@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">📊 Prédiction avec ARIMA</div>
+    <div class="card-body">
+      <input type="number" [(ngModel)]="input_value" class="form-control mb-3" placeholder="Nombre de périodes à prédire">
+      <button class="btn btn-primary" (click)="predict()">Prédire</button>
+  
+      <div *ngIf="prediction.length > 0" class="mt-4">
+        <h5>Résultat :</h5>
+        <ol>
+          <li *ngFor="let value of prediction; let i = index">
+            Période {{ i + 1 }} : {{ value }}
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  

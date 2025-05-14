@@ -1,0 +1,35 @@
+.blank-wrapper {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #EFC6B5;
+  }
+  
+  .blank-message {
+    text-align: center;
+    background: #EFC6B5;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  
+    h2 {
+      color: #e18b6b;
+      margin-bottom: 1rem;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: #555;
+    }
+  
+    .btn {
+      background-color: #e18b6b;
+      border: none;
+  
+      &:hover {
+        background-color: #cc6e50;
+      }
+    }
+  }
+  

@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- ✅ Librairies DataTable et jQuery UI -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<div class="container mt-5">
+  <h2 class="text-center text-info">📊 Prévision Temporelle ARIMA</h2>
+
+  <!-- ✅ Formulaire de configuration -->
+  <form method="GET" action="/forecast_production" class="mb-4 d-flex flex-column align-items-center">
+    <label for="start_date" class="form-label">📅 Date de départ de la prévision :</label>
+    <input type="text" id="start_date" name="start_date" class="form-control mb-3 w-50" autocomplete="off" value="{{ default_date }}">
+
+    <label for="n_months" class="form-label">🔢 Nombre de mois à prédire :</label>
+    <input type="range" min="1" max="12" value="{{ n_months }}" name="n_months" id="n_months" oninput="this.nextElementSibling.value = this.value">
+    <output>{{ n_months }}</output>
+
+    <button type="submit" class="btn btn-primary mt-3">Lancer la prévision</button>
+  </form>
+
+  <!-- ✅ Graphique -->
+  <img src="data:image/png;base64,{{ plot_url }}" class="img-fluid border border-info rounded mb-4" />
+
+  <!-- ✅ Bouton de téléchargement -->
+  <div class="mb-3 text-end">
+    <a href="/download_forecast_csv?start_date={{ default_date }}&n_months={{ n_months }}" class="btn btn-success">
+      📥 Télécharger le CSV
+    </a>
+  </div>
+
+  <!-- ✅ Tableau -->
+  <h4>📋 Détails des prévisions :</h4>
+  <table id="forecast_table" class="display">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Prévision</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in forecast_table %}
+        <tr>
+          <td>{{ row.Date }}</td>
+          <td>{{ row.Prévision }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-outline-secondary">⬅ Retour</a>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $("#start_date").datepicker({ dateFormat: 'yy/mm/dd' });
+    $('#forecast_table').DataTable();
+  });
+</script>
+{% endblock %}

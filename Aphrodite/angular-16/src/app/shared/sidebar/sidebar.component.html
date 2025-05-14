@@ -1,0 +1,31 @@
+<nav class="sidebar-nav mt-3">
+  <ul id="sidebarnav" class="p-3">
+    <li
+      class="sidebar-item"
+      *ngFor="let item of sidebarnavItems"
+      [class.active]="showMenu === item.title"
+      [routerLinkActive]="item.submenu.length ? '' : 'active'"
+    >
+      <div class="nav-small-cap" *ngIf="item.extralink">{{ item.title }}</div>
+
+      <a
+        *ngIf="!item.extralink"
+        class="sidebar-link waves-effect waves-dark"
+        [routerLink]="item.submenu.length ? null : [item.path]"
+        [ngClass]="item.class"
+        (click)="toggleMenu(item.title)"
+      >
+        <i [ngClass]="item.icon"></i>
+        <span class="hide-menu">{{ item.title }}</span>
+      </a>
+
+      <ul class="first-level" [hidden]="showMenu !== item.title">
+        <li class="sidebar-item" *ngFor="let sub of item.submenu">
+          <a [routerLink]="[sub.path]" routerLinkActive="active" class="sidebar-link">
+            {{ sub.title }}
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

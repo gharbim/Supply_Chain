@@ -1,0 +1,50 @@
+<div class="chatbot-container">
+  <!-- Bouton de chat -->
+  <button class="chat-toggle-btn" (click)="toggleChatbot()" aria-label="Chat avec Aphrodite">
+    <i class="fas fa-comment-dots"></i>
+  </button>
+  
+  <!-- Fenêtre de chat -->
+  <div class="chat-window" [ngClass]="{'open': isOpen}">
+    <!-- En-tête du chat -->
+    <div class="chat-header">
+      <img src="assets/logo_final.png" alt="Aphrodite Logo" class="avatar">
+      <div>
+        <h3 class="mb-0">Assistant Aphrodite</h3>
+        <small>Always at your service</small>
+      </div>
+      <button class="close-btn ms-auto" (click)="toggleChatbot()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <!-- Zone de messages -->
+    <div class="chat-messages">
+      <div *ngFor="let message of messages" 
+           class="message-container"
+           [ngClass]="{'message-right': message.sender === 'user', 'message-left': message.sender === 'bot'}">
+        <div class="message" [ngClass]="{'user': message.sender === 'user', 'bot': message.sender === 'bot'}">
+          {{ message.text }}
+        </div>
+      </div>
+      
+      <!-- Indicateur de frappe -->
+      <div *ngIf="isTyping" class="typing message bot">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <!-- Zone de saisie -->
+    <div class="chat-input">
+      <input type="text" 
+             [(ngModel)]="userInput" 
+             placeholder="Write your message..." 
+             (keydown)="handleKeydown($event)">
+      <button (click)="sendMessage()" [disabled]="!userInput.trim()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>🧩 Organize Stocks</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity:</label>
+            <input type="number" step="1" min="0" name="capacity" id="capacity" class="form-control" placeholder="e.g., 1000" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity:</label>
+            <input type="number" step="1" min="0" name="quantity" id="quantity" class="form-control" placeholder="e.g., 500" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Predict Cluster</button>
+    </form>
+
+    {% if prediction is not none %}
+        <div class="mt-4">
+            <h3>Result</h3>
+            <p><strong>Predicted Cluster:</strong> {{ prediction }}</p>
+            <p><strong>Filling Rate:</strong> {{ pourcentage }}%</p>
+            <p><strong>Interpretation:</strong> {{ interpretation }}</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
